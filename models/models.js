@@ -4,14 +4,14 @@ var path = require('path');
 var Sequelize = require('sequelize');
 
 //User BBDD SQLite:
-var sequelize = new Sequelize(null. null, null,
+var sequelize = new Sequelize(null, null, null,
 						{dialect: 'sqlite', storage: 'quiz.sqlite'}
 					);
 
 //Importar la definicion de la tabla Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 
-export.Quiz = Quiz; //Exportar la definición de la tabla Quiz
+exports.Quiz = Quiz; //Exportar la definición de la tabla Quiz
 
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 sequelize.sync().success(function() {
