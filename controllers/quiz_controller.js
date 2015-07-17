@@ -19,29 +19,25 @@ exports.load = function (req, res, next, quizId) {
 
 // Get /quizes
 exports.index = function(req, res){
-	models.Quiz.findAll().then(function (quizes){
-		res.render('quizes/index.ejs', {quizes: quizes });
-	}).catch(function (error) {
+	models.Quiz.findAll().then(
+		function (quizes){
+			res.render('quizes/index.ejs', {quizes: quizes });
+		}
+	).catch(function (error) {
 		next(error);
 	});
 };
 
 // Get /quizes/:id
 exports.show = function(req, res){
-	models.Quiz.find(req.params.quizId).then(function (quiz){
-		res.render('quizes/show', {quiz: req.quiz});
-	});
+	res.render('quizes/show', {quiz: req.quiz});
 };
 
 // Get /quizes/answer
 exports.answer = function(req, res){
-	models.Quiz.find(req.params.quizId).then(function (quiz){
-		var resultado = 'Incorrecto';
-		if(req.query.respuesta === quiz.respuesta){
-			resultado = 'Correcto';
-		}
-		res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado });
-		
-	})
-
+	var resultado = 'Incorrecto';
+	if(req.query.respuesta === quiz.respuesta){
+		resultado = 'Correcto';
+	}
+	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado });
 };
