@@ -25,7 +25,7 @@ exports.index = function(req, res){
 
 
 	models.Quiz.findAll({
-		where: ["pregunta like ?", searchName.toLowerCase()]	
+		where: ["lower(pregunta) like ?", searchName.toLowerCase()]	
 	}).then(
 		function (quizes){
 			res.render('quizes/index.ejs', {quizes: quizes });
