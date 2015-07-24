@@ -21,14 +21,15 @@ exports.load = function (req, res, next, quizId) {
 exports.index = function(req, res){
 	var searchName = req.query.search || "";
 	searchName = searchName.split(" ").join("%");
-	searchName = "%" + searchName + "%";
-
+	console.log(searchName);
+	searchName = "%" + searchName.toLowerCase() + "%";
+	console.log(searchName);
 
 	models.Quiz.findAll({
-		where: ["lower(pregunta) like ?", searchName.toLowerCase()]	
+		where: ["lower(pregunta) like ?", searchName], order:'pregunta ASC'
 	}).then(
 		function (quizes){
-			res.render('quizes/index.ejs', {quizes: quizes });
+			res.render('quizes/index', {quizes: quizes });
 		}
 	).catch(function (error) {
 		next(error);
