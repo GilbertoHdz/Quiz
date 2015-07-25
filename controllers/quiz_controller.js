@@ -43,8 +43,29 @@ exports.show = function(req, res){
 // Get /quizes/answer
 exports.answer = function(req, res){
 	var resultado = 'Incorrecto';
-	if(req.query.respuesta === quiz.respuesta){
+	if(req.query.respuesta === req.quiz.respuesta){
 		resultado = 'Correcto';
 	}
 	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado });
 };
+
+
+// Get /quizes/new
+exports.new = function(req, res) {
+	var quiz = models.Quiz.build(
+		{pregunta: "Pregunta", respuesta: "Respuesta"}
+	);
+
+	res.render('quizes/new', {quiz: quiz});
+};
+
+// POST /quizes/create
+exports.create = function(req, res){
+	var quiz = models.Quiz.build( req.body.quiz );
+
+	//Guarda en DB los campos pregunta y respuesta de quiz
+	quiz.save( {fields: ["pregunta", "respuesta"]} ).then(function() {
+		res.redirec('/quizes');
+	}) // Redireccion HTTP (URL relativo)  lista de preguntas
+};
+
