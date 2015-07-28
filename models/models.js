@@ -1,5 +1,7 @@
 var path = require('path');
 
+//process.env.DATABASE_URL = "sqlite://:@:/";
+
 // Postgress DATABASE_URL = postgress://user:passwd@host:port/database
 // SQLite 	 DATABASE_URL = sqlite://:@:/
 console.log(process.env.DATABASE_URL);
@@ -33,7 +35,7 @@ var quiz_path = path.join(__dirname, 'quiz');
 var Quiz = sequelize.import(quiz_path);
 
 //Importar la definicion de la tabla Comment en quiz.js
-var comment_path = path.join(__dirname, 'Comment');
+var comment_path = path.join(__dirname, 'comment'); //Aqui funcionaba pero con heroku es mas minucioso y no funcionaba
 var Comment = sequelize.import(comment_path);
 
 //Relaciones
