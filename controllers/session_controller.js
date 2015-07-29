@@ -8,6 +8,24 @@ exports.loginRequired = function (req, res, next) {
 	};
 };
 
+exports.checkSession = function(req,res,next){
+	var now = Date.now();
+	var diff=0;
+	var last;
+
+	if(req.session.user){
+		last = new Date(req.session.user.last);
+		diff = now - last;
+
+		if(diff > 60000 ){
+			res.redirect('/logout');
+		}else{
+			next();
+		}
+	}else{
+		res.redirect('/login');
+	}
+};
 
 // Get /login   -- Formulario de login
 exports.new = function (req, res) {
